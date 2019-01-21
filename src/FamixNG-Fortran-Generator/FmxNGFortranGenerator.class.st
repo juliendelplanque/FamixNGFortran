@@ -114,18 +114,21 @@ FmxNGFortranGenerator >> defineHierarchy [
 
 { #category : #definition }
 FmxNGFortranGenerator >> defineRelations [
-	(tWithBody property: #body)
-		<>- (body property: #container).
-		
+	"Implement module's usage mechanism."
 	(module property: #incomingUsageRelations)
 		-* (usage property: #target).
 		
 	(module property: #outgoingUsageRelations)
 		-* (usage property: #source).
-		
+	
 	(program property: #outgoingUsageRelations)
 		-* (usage property: #source).
 		
+	"Implements the fact that an entity with a body has a body."
+	(tWithBody property: #body)
+		<>- (body property: #container).
+	
+	"Implements relations related to static invocation,"
 	(tStaticInvocable property: #incomingStaticInvocations)
 		-* (tStaticInvocation property: #target).
 		
