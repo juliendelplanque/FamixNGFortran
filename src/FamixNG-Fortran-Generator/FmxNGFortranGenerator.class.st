@@ -38,24 +38,39 @@ FmxNGFortranGenerator class >> prefix [
 	^ 'FmxFortran'
 ]
 
+{ #category : #comments }
+FmxNGFortranGenerator >> accessComment [
+	^ 'I model the access to a variable in a Fortran program.'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> bodyComment [
+	^ 'I model the body of an entity in Fortran. I store accesses to variable and invocations made by my container.
+
+3 kinds of entities can have a body:
+- Programs
+- Functions
+- Subroutines'
+]
+
 { #category : #definition }
 FmxNGFortranGenerator >> defineClasses [
 	super defineClasses.
 	"Entities from Fortran's meta-model."
-	module := builder newClassNamed: #Module.
-	program := builder newClassNamed: #Program.
-	subProgram := builder newClassNamed: #SubProgram.
-	variable := builder newClassNamed: #Variable.
-	body := builder newClassNamed: #Body.
-	function := builder newClassNamed: #Function.
-	subRoutine := builder newClassNamed: #Subroutine.
-	parameter := builder newClassNamed: #Parameter.
+	module := builder newClassNamed: #Module comment: self moduleComment.
+	program := builder newClassNamed: #Program comment: self programComment.
+	subProgram := builder newClassNamed: #SubProgram comment: self subProgramComment.
+	variable := builder newClassNamed: #Variable comment: self variableComment.
+	body := builder newClassNamed: #Body comment: self bodyComment.
+	function := builder newClassNamed: #Function comment: self functionComment.
+	subRoutine := builder newClassNamed: #Subroutine comment: self subRoutineComment.
+	parameter := builder newClassNamed: #Parameter comment: self parameterComment.
 	
 	"Links between entities are reified."
-	access := builder newClassNamed: #Access.
-	invocation := builder newClassNamed: #Invocation.
-	include := builder newClassNamed: #Include.
-	usage := builder newClassNamed: #Usage
+	access := builder newClassNamed: #Access comment: self accessComment.
+	invocation := builder newClassNamed: #Invocation comment: self invocationComment.
+	include := builder newClassNamed: #Include comment: self includeComment.
+	usage := builder newClassNamed: #Usage comment: self usageComment.
 ]
 
 { #category : #definition }
@@ -146,4 +161,74 @@ FmxNGFortranGenerator >> defineTraits [
 	tStaticInvocable := builder newTraitNamed: #TStaticInvocable.
 	tStaticInvocation := builder newTraitNamed: #TStaticInvocation.
 	tWithStaticInvocations := builder newTraitNamed: #TWithStaticInvocations.
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> functionComment [
+	^ 'I model a function in Fortran.
+
+I have multiple parameters and a body.'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> includeComment [
+	^ 'I model the inclusion of a file in a Fortran file.'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> invocationComment [
+	^ 'I model an (static) invocation in Fortran.'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> moduleComment [
+	^ 'I model a Fortran module.
+
+A module is a group of functions and subroutines. It can also declare variables.'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> parameterComment [
+	^ 'I model a Fortran parameter.
+
+To kind of entities can hold parameters:
+- Functions
+- Subroutines'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> programComment [
+	^ 'I model a program in Fortran.
+
+I am the entrypoint when Fortran code is executed.'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> subProgramComment [
+	^ 'I model an abstract sub-program in Fortran.
+
+I hold a body and can be invoked.'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> subRoutineComment [
+	^ 'I model a sub-routine in Fortran.
+
+I have multiple parameters and a body.'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> usageComment [
+	^ 'I model the fact that a Fortran module or program uses another Fortran module.'
+]
+
+{ #category : #comments }
+FmxNGFortranGenerator >> variableComment [
+	^ 'I model a Fortran variable.
+
+There are 4 kind of entities in Fortran''s meta-model that can hold variables:
+- Modules
+- Programs
+- Functions
+- Subroutine'
 ]
