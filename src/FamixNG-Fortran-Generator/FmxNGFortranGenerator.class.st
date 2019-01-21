@@ -61,10 +61,6 @@ FmxNGFortranGenerator >> defineClasses [
 { #category : #definition }
 FmxNGFortranGenerator >> defineHierarchy [
 	super defineHierarchy.
-	include --|> association.
-	include --|> #TFileInclude.
-	
-	usage --|> association.
 	
 	file --|> #TWithFileInclude.
 	
@@ -72,10 +68,6 @@ FmxNGFortranGenerator >> defineHierarchy [
 	module --|> #TModule.
 	module --|> #TWithFiles.
 	module --|> #TWithLocalVariables.
-	
-	body --|> entity.
-	body --|> tWithStaticInvocations.
-	body --|> #TWithAccesses.
 	
 	program --|> namedEntity.
 	program --|> tWithBody.
@@ -94,11 +86,9 @@ FmxNGFortranGenerator >> defineHierarchy [
 	function --|> subProgram.
 	subRoutine --|> subProgram.
 	
-	access --|> association.
-	access --|> #TAccess.
-	
-	invocation --|> association.
-	invocation --|> tStaticInvocation.
+	body --|> entity.
+	body --|> tWithStaticInvocations.
+	body --|> #TWithAccesses.
 	
 	parameter --|> namedEntity.
 	parameter --|> #TParameter.
@@ -106,7 +96,20 @@ FmxNGFortranGenerator >> defineHierarchy [
 	
 	variable --|> namedEntity.
 	variable --|> #TLocalVariable.
-	variable --|> #TAccessible
+	variable --|> #TAccessible.
+	
+	
+	"Reified links between entities will usually inherit from association."
+	include --|> association.
+	include --|> #TFileInclude.
+	
+	access --|> association.
+	access --|> #TAccess.
+	
+	invocation --|> association.
+	invocation --|> tStaticInvocation.
+	
+	usage --|> association.
 ]
 
 { #category : #definition }
