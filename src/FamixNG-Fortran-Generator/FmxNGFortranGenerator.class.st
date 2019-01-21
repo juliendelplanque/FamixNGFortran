@@ -30,7 +30,7 @@ FmxNGFortranGenerator class >> generate [
 
 { #category : #accessing }
 FmxNGFortranGenerator class >> packageName [
-	^ 'FamixNGFortran'
+	^ 'FamixNG-Fortran'
 ]
 
 { #category : #accessing }
