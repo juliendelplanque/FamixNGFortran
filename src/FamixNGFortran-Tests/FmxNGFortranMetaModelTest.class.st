@@ -4,6 +4,34 @@ Class {
 	#category : #'FamixNGFortran-Tests'
 }
 
+{ #category : #'as yet unclassified' }
+FmxNGFortranMetaModelTest >> sampleFunction [
+	^ FmxFortranFunction new
+		name: 'fct';
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+FmxNGFortranMetaModelTest >> sampleModule [
+	^ FmxFortranModule new
+		name: 'module';
+		yourself.
+]
+
+{ #category : #'as yet unclassified' }
+FmxNGFortranMetaModelTest >> sampleProgram [
+	^ FmxFortranProgram new
+		name: 'program';
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+FmxNGFortranMetaModelTest >> sampleSubroutine [
+	^ FmxFortranSubroutine new
+		name: 'subroutine';
+		yourself
+]
+
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testEntityWithVariable: entity [
 	| var1 var2 |
@@ -68,18 +96,10 @@ FmxNGFortranMetaModelTest >> testFileWithModuleProgramAndSubProgram [
 	file := FmxFortranFile new
 				name: 'file.f';
 				yourself.
-	module := FmxFortranModule new
-					name: 'module';
-					yourself.
-	program := FmxFortranProgram new
-					name: 'program';
-					yourself.
-	function := FmxFortranFunction new
-					name: 'sqrt';
-					yourself.
-	subRoutine := FmxFortranSubroutine new
-						name: 'computation';
-						yourself.
+	module := self sampleModule.
+	program := self sampleProgram.
+	function := self sampleFunction.
+	subRoutine := self sampleSubroutine.
 	
 	self assert: file entities size equals: 0.
 	
@@ -104,20 +124,13 @@ FmxNGFortranMetaModelTest >> testFileWithModuleProgramAndSubProgram [
 
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testFunctionWithVariables [
-	| function |
-	function := FmxFortranFunction new
-					name: 'fct';
-					yourself.
-	
-	self testEntityWithVariable: function
+	self testEntityWithVariable: self sampleFunction
 ]
 
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testModuleAndUsage [
 	| module usedModule |
-	module := FmxFortranModule new
-					name: 'module';
-					yourself.
+	module := self sampleModule.
 	usedModule := FmxFortranModule new
 						name: 'usedModule';
 						yourself.
@@ -142,12 +155,8 @@ FmxNGFortranMetaModelTest >> testModuleAndUsage [
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testModuleAndUsageFromProgram [
 	| usedModule  program |
-	usedModule := FmxFortranModule new
-					name: 'module';
-					yourself.
-	program := FmxFortranProgram new
-						name: 'program';
-						yourself.
+	usedModule := self sampleModule.
+	program :=self sampleProgram.
 						
 	self assert: usedModule incomingUsageRelations size equals: 0.
 	self assert: usedModule outgoingUsageRelations size equals: 0.
@@ -166,30 +175,20 @@ FmxNGFortranMetaModelTest >> testModuleAndUsageFromProgram [
 
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testModuleWithVariables [
-	| module |
-	module := FmxFortranModule new
-					name: 'module';
-					yourself.
-	
-	self testEntityWithVariable: module
+	self testEntityWithVariable: self sampleModule
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testProgramWithBody [
+	self fail
 ]
 
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testProgramWithVariables [
-	| program |
-	program := FmxFortranProgram new
-					name: 'program';
-					yourself.
-	
-	self testEntityWithVariable: program
+	self testEntityWithVariable: self sampleProgram
 ]
 
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testSubroutineWithVariables [
-	| subRoutine |
-	subRoutine := FmxFortranSubroutine new
-					name: 'subroutine';
-					yourself.
-	
-	self testEntityWithVariable: subRoutine
+	self testEntityWithVariable: self sampleSubroutine
 ]
