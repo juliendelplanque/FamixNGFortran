@@ -103,6 +103,33 @@ FmxNGFortranMetaModelTest >> testBodyAccessingParameterOfItsContainer: container
 ]
 
 { #category : #tests }
+FmxNGFortranMetaModelTest >> testBodyInvokingEntity: entity [
+	| body invocation |
+	body := self sampleBody.
+	
+	self assert: entity incomingStaticInvocations size equals: 0.
+	self assert: body outgoingStaticInvocations size equals: 0.
+	
+	invocation := FmxFortranInvocation new
+					caller: body;
+					target: entity.
+	
+	self assert: entity incomingStaticInvocations size equals: 1.
+	self assert: entity incomingStaticInvocations first equals: invocation.
+	self assert: body outgoingStaticInvocations size equals: 1.
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testBodyInvokingFunction [
+	self testBodyInvokingEntity: self sampleFunction
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testBodyInvokingSubroutine [
+	self testBodyInvokingEntity: self sampleSubroutine
+]
+
+{ #category : #tests }
 FmxNGFortranMetaModelTest >> testEntityWithBody: entity [
 	| body |
 	body := self sampleBody.

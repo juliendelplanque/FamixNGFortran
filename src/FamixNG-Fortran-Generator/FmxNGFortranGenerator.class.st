@@ -14,7 +14,10 @@ Class {
 		'invocation',
 		'tWithBody',
 		'include',
-		'usage'
+		'usage',
+		'tStaticInvocable',
+		'tStaticInvocation',
+		'tWithStaticInvocations'
 	],
 	#category : #'FamixNG-Fortran-Generator'
 }
@@ -67,7 +70,8 @@ FmxNGFortranGenerator >> defineHierarchy [
 	module --|> #TWithFiles.
 	module --|> #TWithLocalVariables.
 	
-	body --|> #TWithInvocations.
+	body --|> entity.
+	body --|> tWithStaticInvocations.
 	body --|> #TWithAccesses.
 	
 	program --|> namedEntity.
@@ -81,7 +85,7 @@ FmxNGFortranGenerator >> defineHierarchy [
 	subProgram --|> #TWithLocalVariables.
 	subProgram --|> #TWithFiles.
 	subProgram --|> #TWithLocalVariables.
-	subProgram --|> #TInvocable.
+	subProgram --|> tStaticInvocable.
 	
 	function --|> subProgram.
 	subRoutine --|> subProgram.
@@ -90,7 +94,7 @@ FmxNGFortranGenerator >> defineHierarchy [
 	access --|> #TAccess.
 	
 	invocation --|> association.
-	invocation --|> #TInvocation.
+	invocation --|> tStaticInvocation.
 	
 	parameter --|> namedEntity.
 	parameter --|> #TParameter.
@@ -114,6 +118,12 @@ FmxNGFortranGenerator >> defineRelations [
 		
 	(program property: #outgoingUsageRelations)
 		-* (usage property: #source).
+		
+	(tStaticInvocable property: #incomingStaticInvocations)
+		-* (tStaticInvocation property: #target).
+		
+	(tWithStaticInvocations property: #outgoingStaticInvocations)
+		-* (tStaticInvocation property: #caller)
 ]
 
 { #category : #definition }
@@ -121,5 +131,11 @@ FmxNGFortranGenerator >> defineTraits [
 
 	super defineTraits.
 	
-	tWithBody := builder newTraitNamed: #TWithBody
+	tWithBody := builder newTraitNamed: #TWithBody.
+	
+	tStaticInvocable := builder newTraitNamed: #TStaticInvocable.
+	
+	tStaticInvocation := builder newTraitNamed: #TStaticInvocation.
+	
+	tWithStaticInvocations := builder newTraitNamed: #TWithStaticInvocations.
 ]
