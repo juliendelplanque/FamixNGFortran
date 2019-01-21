@@ -59,6 +59,38 @@ FmxNGFortranMetaModelTest >> testEntityWithBody: entity [
 ]
 
 { #category : #tests }
+FmxNGFortranMetaModelTest >> testEntityWithParameters: entity [
+	| param1 param2 |
+	
+	param1 := FmxFortranParameter new
+				name: 'param1';
+				yourself.
+	
+	param2 := FmxFortranParameter new
+				name: 'param2';
+				yourself.
+	
+	self assert: param1 parentBehaviouralEntity isNil.
+	self assert: entity parameters isEmpty.
+	
+	param1
+		parentBehaviouralEntity: entity.
+	
+	self assert: param1 parentBehaviouralEntity equals: entity.
+	self assert: entity parameters size equals: 1.
+	self assertCollection: entity parameters hasSameElements: { param1 }.
+	
+	self assert: param2 parentBehaviouralEntity isNil.
+	
+	param2
+		parentBehaviouralEntity: entity.
+		
+	self assert: param2 parentBehaviouralEntity equals: entity.
+	self assert: entity parameters size equals: 2.
+	self assertCollection: entity parameters hasSameElements: { param1 . param2 }.
+]
+
+{ #category : #tests }
 FmxNGFortranMetaModelTest >> testEntityWithVariable: entity [
 	| var1 var2 |
 	
@@ -150,6 +182,11 @@ FmxNGFortranMetaModelTest >> testFunctionWithBody [
 ]
 
 { #category : #tests }
+FmxNGFortranMetaModelTest >> testFunctionWithParameters [
+	self testEntityWithParameters: self sampleFunction
+]
+
+{ #category : #tests }
 FmxNGFortranMetaModelTest >> testFunctionWithVariables [
 	self testEntityWithVariable: self sampleFunction
 ]
@@ -218,6 +255,11 @@ FmxNGFortranMetaModelTest >> testProgramWithVariables [
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testSubroutineWithBody [
 	self testEntityWithBody: self sampleSubroutine
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testSubroutineWithParameters [
+	self testEntityWithParameters: self sampleSubroutine
 ]
 
 { #category : #tests }
