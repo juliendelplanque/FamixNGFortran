@@ -130,6 +130,21 @@ FmxNGFortranMetaModelTest >> testBodyInvokingSubroutine [
 ]
 
 { #category : #tests }
+FmxNGFortranMetaModelTest >> testEntityDefinedInModule: entity [
+	| module |
+	module := self sampleModule.
+	
+	self assert: entity parentModule isNil.
+	self assert: module moduleEntities isEmpty.
+	
+	entity parentModule: module.
+	
+	self assert: entity parentModule equals: module.
+	self assert: module moduleEntities size equals: 1.
+	self assert: module moduleEntities first equals: entity
+]
+
+{ #category : #tests }
 FmxNGFortranMetaModelTest >> testEntityWithBody: entity [
 	| body |
 	body := self sampleBody.
@@ -262,6 +277,11 @@ FmxNGFortranMetaModelTest >> testFileWithModuleProgramAndSubProgram [
 ]
 
 { #category : #tests }
+FmxNGFortranMetaModelTest >> testFunctionDefinedInModule [
+	self testEntityDefinedInModule: self sampleFunction
+]
+
+{ #category : #tests }
 FmxNGFortranMetaModelTest >> testFunctionWithBody [
 	self testEntityWithBody: self sampleFunction
 ]
@@ -362,6 +382,11 @@ FmxNGFortranMetaModelTest >> testProgramWithBodyAccessingItsLocalVariable [
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testProgramWithVariables [
 	self testEntityWithVariable: self sampleProgram
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testSubroutineDefinedInModule [
+	self testEntityDefinedInModule: self sampleSubroutine
 ]
 
 { #category : #tests }

@@ -67,6 +67,7 @@ FmxNGFortranGenerator >> defineHierarchy [
 	file --|> #TWithFileInclude.
 	
 	module --|> namedEntity.
+	module --|> #TModule.
 	module --|> #TWithFiles.
 	module --|> #TWithLocalVariables.
 	
@@ -81,11 +82,12 @@ FmxNGFortranGenerator >> defineHierarchy [
 	
 	subProgram --|> namedEntity.
 	subProgram --|> tWithBody.
+	subProgram --|> tStaticInvocable.
+	subProgram --|> #TDefinedInModule.
 	subProgram --|> #TWithParameters.
 	subProgram --|> #TWithLocalVariables.
 	subProgram --|> #TWithFiles.
 	subProgram --|> #TWithLocalVariables.
-	subProgram --|> tStaticInvocable.
 	
 	function --|> subProgram.
 	subRoutine --|> subProgram.
