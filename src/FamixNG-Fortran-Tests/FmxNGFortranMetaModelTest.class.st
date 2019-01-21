@@ -1,7 +1,7 @@
 Class {
 	#name : #FmxNGFortranMetaModelTest,
 	#superclass : #TestCase,
-	#category : #'FamixNGFortran-Tests'
+	#category : #'FamixNG-Fortran-Tests'
 }
 
 { #category : #samples }
