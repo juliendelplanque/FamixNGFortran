@@ -132,14 +132,12 @@ FmxNGFortranGenerator >> defineRelations [
 
 { #category : #definition }
 FmxNGFortranGenerator >> defineTraits [
-
 	super defineTraits.
-	
 	tWithBody := builder newTraitNamed: #TWithBody.
 	
+	"By default, the basic infrastructure of Famix-NG implements 'dynamic' invocation.
+	 Here, we implement 'static' invocation using so it can be extracted for re-use later."
 	tStaticInvocable := builder newTraitNamed: #TStaticInvocable.
-	
 	tStaticInvocation := builder newTraitNamed: #TStaticInvocation.
-	
 	tWithStaticInvocations := builder newTraitNamed: #TWithStaticInvocations.
 ]
