@@ -223,7 +223,7 @@ FmxNGFortranMetaModelTest >> testEntityWithVariable: entity [
 ]
 
 { #category : #tests }
-FmxNGFortranMetaModelTest >> testFile [
+FmxNGFortranMetaModelTest >> testFileInclude [
 	| file fileIncluded |
 	file := self sampleFile.
 	fileIncluded := FmxFortranFile new
