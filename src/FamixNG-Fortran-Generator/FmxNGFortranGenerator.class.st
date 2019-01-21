@@ -98,7 +98,7 @@ FmxNGFortranGenerator >> defineHierarchy [
 { #category : #definition }
 FmxNGFortranGenerator >> defineRelations [
 	(tWithBody property: #body)
-		<>-* (body property: #container).
+		<>- (body property: #container).
 		
 	(module property: #incomingUsageRelations)
 		-* (usage property: #target).

@@ -4,32 +4,58 @@ Class {
 	#category : #'FamixNGFortran-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #samples }
+FmxNGFortranMetaModelTest >> sampleBody [
+	^ FmxFortranBody new
+]
+
+{ #category : #samples }
+FmxNGFortranMetaModelTest >> sampleFile [
+	^ FmxFortranFile new
+		name: 'file.f';
+		yourself
+]
+
+{ #category : #samples }
 FmxNGFortranMetaModelTest >> sampleFunction [
 	^ FmxFortranFunction new
 		name: 'fct';
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #samples }
 FmxNGFortranMetaModelTest >> sampleModule [
 	^ FmxFortranModule new
 		name: 'module';
 		yourself.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #samples }
 FmxNGFortranMetaModelTest >> sampleProgram [
 	^ FmxFortranProgram new
 		name: 'program';
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #samples }
 FmxNGFortranMetaModelTest >> sampleSubroutine [
 	^ FmxFortranSubroutine new
 		name: 'subroutine';
 		yourself
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testEntityWithBody: entity [
+	| body |
+	body := self sampleBody.
+	
+	self assert: entity body isNil.
+	self assert: body container isNil.
+	
+	entity body: body.
+	
+	self assert: entity body equals: body.
+	self assert: body container equals: entity.
 ]
 
 { #category : #tests }
@@ -67,9 +93,7 @@ FmxNGFortranMetaModelTest >> testEntityWithVariable: entity [
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testFile [
 	| file fileIncluded |
-	file := FmxFortranFile new
-				name: 'module.f';
-				yourself.
+	file := self sampleFile.
 	fileIncluded := FmxFortranFile new
 							name: 'included.f';
 							yourself.
@@ -93,9 +117,7 @@ FmxNGFortranMetaModelTest >> testFile [
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testFileWithModuleProgramAndSubProgram [
 	| file module program function subRoutine |
-	file := FmxFortranFile new
-				name: 'file.f';
-				yourself.
+	file := self sampleFile.
 	module := self sampleModule.
 	program := self sampleProgram.
 	function := self sampleFunction.
@@ -120,6 +142,11 @@ FmxNGFortranMetaModelTest >> testFileWithModuleProgramAndSubProgram [
 	self assert: (function containerFiles includes: file).
 	self assert: subRoutine containerFiles size equals: 1.
 	self assert: (subRoutine containerFiles includes: file).
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testFunctionWithBody [
+	self testEntityWithBody: self sampleFunction
 ]
 
 { #category : #tests }
@@ -180,12 +207,17 @@ FmxNGFortranMetaModelTest >> testModuleWithVariables [
 
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testProgramWithBody [
-	self fail
+	self testEntityWithBody: self sampleProgram
 ]
 
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testProgramWithVariables [
 	self testEntityWithVariable: self sampleProgram
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testSubroutineWithBody [
+	self testEntityWithBody: self sampleSubroutine
 ]
 
 { #category : #tests }
