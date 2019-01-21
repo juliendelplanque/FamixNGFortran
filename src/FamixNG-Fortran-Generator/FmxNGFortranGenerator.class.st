@@ -41,6 +41,7 @@ FmxNGFortranGenerator class >> prefix [
 { #category : #definition }
 FmxNGFortranGenerator >> defineClasses [
 	super defineClasses.
+	"Entities from Fortran's meta-model."
 	module := builder newClassNamed: #Module.
 	program := builder newClassNamed: #Program.
 	subProgram := builder newClassNamed: #SubProgram.
@@ -49,9 +50,10 @@ FmxNGFortranGenerator >> defineClasses [
 	function := builder newClassNamed: #Function.
 	subRoutine := builder newClassNamed: #Subroutine.
 	parameter := builder newClassNamed: #Parameter.
+	
+	"Links between entities are reified."
 	access := builder newClassNamed: #Access.
 	invocation := builder newClassNamed: #Invocation.
-	
 	include := builder newClassNamed: #Include.
 	usage := builder newClassNamed: #Usage
 ]
