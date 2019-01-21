@@ -31,6 +31,13 @@ FmxNGFortranMetaModelTest >> sampleModule [
 ]
 
 { #category : #samples }
+FmxNGFortranMetaModelTest >> sampleParameter [
+	^ FmxFortranParameter new
+		name: 'param';
+		yourself
+]
+
+{ #category : #samples }
 FmxNGFortranMetaModelTest >> sampleProgram [
 	^ FmxFortranProgram new
 		name: 'program';
@@ -42,6 +49,57 @@ FmxNGFortranMetaModelTest >> sampleSubroutine [
 	^ FmxFortranSubroutine new
 		name: 'subroutine';
 		yourself
+]
+
+{ #category : #samples }
+FmxNGFortranMetaModelTest >> sampleVariable [
+	^ FmxFortranVariable new
+		name: 'var';
+		yourself
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testBodyAccessingLocalVariableOfItsContainer: container [
+	| body localVariable access1 |
+	body := self sampleBody.
+	
+	container body: body.
+	
+	localVariable := container localVariables first.
+	
+	self assert: body accesses size equals: 0.
+	self assert: localVariable incomingAccesses size equals: 0.
+	
+	access1 := FmxFortranAccess new
+					accessor: body;
+					variable: localVariable.
+		
+	self assert: body accesses size equals: 1.
+	self assert: body accesses first equals: access1.
+	self assert: localVariable incomingAccesses size equals: 1.
+	self assert: localVariable incomingAccesses first equals: access1
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testBodyAccessingParameterOfItsContainer: container [
+	| body parameters access1 |
+	body := self sampleBody.
+	
+	container body: body.
+	
+	parameters := container parameters first.
+	
+	self assert: body accesses size equals: 0.
+	self assert: parameters incomingAccesses size equals: 0.
+	
+	access1 := FmxFortranAccess new
+					accessor: body;
+					variable: parameters.
+		
+	self assert: body accesses size equals: 1.
+	self assert: body accesses first equals: access1.
+	self assert: parameters incomingAccesses size equals: 1.
+	self assert: parameters incomingAccesses first equals: access1
 ]
 
 { #category : #tests }
@@ -182,6 +240,24 @@ FmxNGFortranMetaModelTest >> testFunctionWithBody [
 ]
 
 { #category : #tests }
+FmxNGFortranMetaModelTest >> testFunctionWithBodyAccessingItsLocalVariable [
+	| function |
+	function := self sampleFunction.
+	self sampleVariable
+		parentBehaviouralEntity: function.
+	self testBodyAccessingLocalVariableOfItsContainer: function
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testFunctionWithBodyAccessingItsParameter [
+	| function |
+	function := self sampleFunction.
+	self sampleParameter
+		parentBehaviouralEntity: function.
+	self testBodyAccessingParameterOfItsContainer: function
+]
+
+{ #category : #tests }
 FmxNGFortranMetaModelTest >> testFunctionWithParameters [
 	self testEntityWithParameters: self sampleFunction
 ]
@@ -248,6 +324,15 @@ FmxNGFortranMetaModelTest >> testProgramWithBody [
 ]
 
 { #category : #tests }
+FmxNGFortranMetaModelTest >> testProgramWithBodyAccessingItsLocalVariable [
+	| program |
+	program := self sampleProgram.
+	self sampleVariable
+		parentBehaviouralEntity: program.
+	self testBodyAccessingLocalVariableOfItsContainer: program
+]
+
+{ #category : #tests }
 FmxNGFortranMetaModelTest >> testProgramWithVariables [
 	self testEntityWithVariable: self sampleProgram
 ]
@@ -255,6 +340,24 @@ FmxNGFortranMetaModelTest >> testProgramWithVariables [
 { #category : #tests }
 FmxNGFortranMetaModelTest >> testSubroutineWithBody [
 	self testEntityWithBody: self sampleSubroutine
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testSubroutineWithBodyAccessingItsLocalVariable [
+	| subRoutine |
+	subRoutine := self sampleSubroutine.
+	self sampleVariable
+		parentBehaviouralEntity: subRoutine.
+	self testBodyAccessingLocalVariableOfItsContainer: subRoutine
+]
+
+{ #category : #tests }
+FmxNGFortranMetaModelTest >> testSubroutineWithBodyAccessingItsParameter [
+	| subRoutine |
+	subRoutine := self sampleSubroutine.
+	self sampleParameter
+		parentBehaviouralEntity: subRoutine.
+	self testBodyAccessingParameterOfItsContainer: subRoutine
 ]
 
 { #category : #tests }
