@@ -13,7 +13,7 @@ BaselineOfFamixNGFortran >> baseline: spec [
 			spec
 				package: 'FamixNG-Fortran-Generator';
 				package: 'FamixNG-Fortran-Tests' with: [ spec requires: #('FamixNG-Fortran') ];
-				package: 'FamixNG-Fortran-ScenarioBuilder' with: [ spec requires: #('FamixNG-Fortran-Generator') ];
+				package: 'FamixNG-Fortran-ScenarioBuilder' with: [ spec requires: #('FamixNG-Fortran-Generator' 'LectureGuide') ];
 				package: 'FamixNG-Fortran';
 				package: 'FamixNG-Fortran-Generator-Tutorial' with: [ spec requires: #('GitBridge' 'LectureGuide') ].
 			spec
