@@ -37,7 +37,5 @@ BaselineOfFamixNGFortran >> baseline: spec [
 
 { #category : #actions }
 BaselineOfFamixNGFortran >> postload: loader package: packageSpec [
-	self class environment
-		at: #LGScenaristPresenter ifPresent: [ 
-			self class environment classNamed: #FmxFortranTutorial ifPresent: #open ]
+	self class environment at: #FmxFortranTutorial ifPresent: #open
 ]
