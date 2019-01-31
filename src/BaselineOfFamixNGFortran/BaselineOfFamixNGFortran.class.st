@@ -11,7 +11,7 @@ BaselineOfFamixNGFortran >> baseline: spec [
 		for: #common
 		do: [ "Packages"
 			spec
-				spec postLoadDoIt: #'postload:package:'.
+				postLoadDoIt: #'postload:package:'.
 			spec
 				package: 'FamixNG-Fortran-Generator';
 				package: 'FamixNG-Fortran-Tests' with: [ spec requires: #('FamixNG-Fortran') ];
