@@ -23,7 +23,10 @@ BaselineOfFamixNGFortran >> baseline: spec [
    				with: [ spec repository: 'github://jecisc/GitBridge/src' ].
 			spec
    				baseline: 'LectureGuide'
-   				with: [ spec repository: 'github://juliendelplanque/LectureGuide/src' ].
+   				with: [ 
+					spec
+						repository: 'github://juliendelplanque/LectureGuide/src';
+						loads: #('spec') ].
 			spec
         		group: 'Generator' with: #('FamixNG-Fortran-Generator');
 				group: 'Core' with: #('FamixNG-Fortran' 'FamixNG-Fortran-Tests');
