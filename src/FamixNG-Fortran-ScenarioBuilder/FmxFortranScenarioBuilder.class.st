@@ -33,5 +33,5 @@ FmxFortranScenarioBuilder class >> buildScenario [
 { #category : #building }
 FmxFortranScenarioBuilder class >> buildScenarioAndSaveInFile: anObject [
 	anObject asFileReference
-		writeStreamDo: [ :s | anObject storeOn: s ].
+		writeStreamDo: [ :s | STON put: self buildScenario onStreamPretty: s ].
 ]
