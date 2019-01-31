@@ -4,12 +4,7 @@ Class {
 	#category : #'FamixNG-Fortran-Generator-Tutorial'
 }
 
-{ #category : #'class initialization' }
-FmxFortranTutorial class >> initialize [
-	self open
-]
-
-{ #category : #'class initialization' }
+{ #category : #opening }
 FmxFortranTutorial class >> open [
 	LGScenaristPresenter new
 		openWithSpec;

@@ -11,6 +11,8 @@ BaselineOfFamixNGFortran >> baseline: spec [
 		for: #common
 		do: [ "Packages"
 			spec
+				spec postLoadDoIt: #'postload:package:'.
+			spec
 				package: 'FamixNG-Fortran-Generator';
 				package: 'FamixNG-Fortran-Tests' with: [ spec requires: #('FamixNG-Fortran') ];
 				package: 'FamixNG-Fortran-ScenarioBuilder' with: [ spec requires: #('FamixNG-Fortran-Generator' 'LectureGuide') ];
@@ -28,4 +30,9 @@ BaselineOfFamixNGFortran >> baseline: spec [
 				group: 'ScenarioBuilder' with: #('FamixNG-Fortran-ScenarioBuilder');
 				group: 'Tutorial' with: #('FamixNG-Fortran-Generator-Tutorial');
 				group: 'default' with: #('Core') ]
+]
+
+{ #category : #actions }
+BaselineOfFamixNGFortran >> postload: loader package: packageSpec [
+	self class environment classNamed: #FmxFortranTutorial ifPresent: #open
 ]
